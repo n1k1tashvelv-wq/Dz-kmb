@@ -1,0 +1,114 @@
+using System;
+
+namespace ArithmeticOperations
+{
+    class Program
+    {
+        static void Main()
+        {
+            try
+            {
+                int firstNumber = GetNumber("первое");
+                int secondNumber = GetNumber("второе");
+                
+                Console.WriteLine($"\nИсходные значения: {firstNumber} и {secondNumber}");
+                
+                DisplayArithmeticOperations(firstNumber, secondNumber);
+                DisplayIncrementDecrementOperations(firstNumber, secondNumber);
+                DisplayBitwiseOperations(firstNumber, secondNumber);
+            }
+            catch (Exception ex)
+            {
+                HandleException(ex);
+            }
+            
+            WaitForExit();
+        }
+        
+        static int GetNumber(string numberName)
+        {
+            Console.Write($"Введите {numberName} число: ");
+            return int.Parse(Console.ReadLine());
+        }
+        
+        static void DisplayArithmeticOperations(int a, int b)
+        {
+            Console.WriteLine("\n=== АРИФМЕТИЧЕСКИЕ ОПЕРАЦИИ ===");
+            
+            Console.WriteLine($"Сложение:        {a} + {b} = {a + b}");
+            Console.WriteLine($"Вычитание:       {a} - {b} = {a - b}");
+            Console.WriteLine($"Умножение:       {a} × {b} = {a * b}");
+            
+            if (b != 0)
+            {
+                Console.WriteLine($"Деление:         {a} ÷ {b} = {a / b}");
+                Console.WriteLine($"Остаток:         {a} % {b} = {a % b}");
+            }
+            else
+            {
+                Console.WriteLine("Деление:         невозможно (деление на ноль)");
+                Console.WriteLine("Остаток:         невозможно (деление на ноль)");
+            }
+        }
+        
+        static void DisplayIncrementDecrementOperations(int a, int b)
+        {
+            Console.WriteLine("\n=== ИНКРЕМЕНТ И ДЕКРЕМЕНТ ===");
+            
+            int originalA = a, originalB = b;
+            
+            Console.WriteLine($"Постфиксный инкремент a: {a++} → {a}");
+            Console.WriteLine($"Постфиксный инкремент b: {b++} → {b}");
+            
+            a = originalA;
+            b = originalB;
+            
+            Console.WriteLine($"Постфиксный декремент a: {a--} → {a}");
+            Console.WriteLine($"Постфиксный декремент b: {b--} → {b}");
+            
+            a = originalA;
+            b = originalB;
+            
+            Console.WriteLine($"Префиксный инкремент a:  {++a}");
+            Console.WriteLine($"Префиксный инкремент b:  {++b}");
+            
+            a = originalA;
+            b = originalB;
+            
+            Console.WriteLine($"Префиксный декремент a:  {--a}");
+            Console.WriteLine($"Префиксный декремент b:  {--b}");
+        }
+        
+        static void DisplayBitwiseOperations(int a, int b)
+        {
+            Console.WriteLine("\n=== ПОБИТОВЫЕ ОПЕРАЦИИ ===");
+            
+            Console.WriteLine($"Логическое И:     {a} & {b} = {a & b}");
+            Console.WriteLine($"Логическое ИЛИ:   {a} | {b} = {a | b}");
+            Console.WriteLine($"Логическое XOR:   {a} ^ {b} = {a ^ b}");
+            Console.WriteLine($"Инверсия a (NOT): ~{a} = {~a}");
+            Console.WriteLine($"Инверсия b (NOT): ~{b} = {~b}");
+            
+            Console.WriteLine($"Сдвиг a влево:    {a} << 1 = {a << 1}");
+            Console.WriteLine($"Сдвиг a вправо:   {a} >> 1 = {a >> 1}");
+        }
+        
+        static void HandleException(Exception ex)
+        {
+            if (ex is FormatException)
+                Console.WriteLine("\nОшибка: Неверный формат числа!");
+            else if (ex is OverflowException)
+                Console.WriteLine("\nОшибка: Число слишком большое или слишком маленькое!");
+            else if (ex is DivideByZeroException)
+                Console.WriteLine("\nОшибка: Деление на ноль!");
+            else
+                Console.WriteLine($"\nОшибка: {ex.Message}");
+        }
+        
+        static void WaitForExit()
+        {
+            Console.WriteLine("\nНажмите любую клавишу для завершения...");
+            Console.ReadKey();
+        }
+    }
+}
